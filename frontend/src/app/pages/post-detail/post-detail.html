@@ -1,0 +1,50 @@
+<div class="p-4">
+
+  <breadcrumb [items]="breadcrumbs"></breadcrumb>
+
+  <!-- Loading -->
+  <div *ngIf="loading()" class="text-gray-500">
+    Loading...
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error()" class="text-red-500">
+    {{ error() }}
+  </div>
+
+  <!-- Post -->
+  <div *ngIf="post()" 
+       class="relative p-6 bg-white dark:bg-neutral-900 shadow rounded-xl">
+
+<div class="flex items-center gap-2">
+    <div class="h-7 w-7 rounded-full bg-gray-200 dark:bg-white flex justify-center items-center">
+      <i class="mdi mdi-account text-primary"></i>
+    </div>
+    <p class="text-neutral-700 dark:text-white">User {{ post()?.userId }}</p>
+  </div>
+
+    <button
+      (click)="favoriteService.toggleFavorite(post()!.id)"
+      class="absolute top-4 right-4 text-2xl transition"
+      [ngClass]="favoriteService.isFavorite(post()!.id)
+        ? 'text-red-500'
+        : 'text-gray-400 hover:text-red-400'"
+    >
+      <i class="mdi"
+         [ngClass]="favoriteService.isFavorite(post()!.id)
+          ? 'mdi-heart'
+          : 'mdi-heart-outline'">
+      </i>
+    </button>
+
+    <h1 class="text-3xl font-bold text-neutral-800 dark:text-white mt-2">
+      {{ post()?.title }}
+    </h1>
+
+    <p class="mt-4 text-gray-600 dark:text-gray-400 leading-relaxed">
+      {{ post()?.body }}
+    </p>
+
+  </div>
+
+</div>

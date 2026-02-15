@@ -1,0 +1,58 @@
+<!-- Overlay -->
+<div
+  *ngIf="isOpen"
+  class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden transition-opacity"
+  (click)="close()"
+></div>
+
+<!-- Sidebar -->
+<aside
+  class="fixed md:static top-0 left-0 z-50 h-full w-64 bg-white dark:bg-neutral-900 text-gray-700 dark:text-gray-200 shadow-xl md:shadow-none p-4 transform transition-transform duration-300 md:translate-x-0"
+  [class.translate-x-0]="isOpen"
+  [class.-translate-x-full]="!isOpen"
+>
+  <!-- Logo -->
+  <div class="flex items-center gap-3">
+    <div
+      class="bg-primary text-white w-10 h-10 flex items-center justify-center rounded-xl font-bold text-lg"
+    >
+      T
+    </div>
+    <div>
+      <h1 class="font-semibold text-lg text-gray-900 dark:text-white">Test</h1>
+      <p class="text-xs text-gray-400">Angular</p>
+    </div>
+  </div>
+
+  <div class="border-b border-gray-100 mt-4 mb-3"></div>
+  <p class="mb-3">Menu</p>
+
+  <!-- Navigation -->
+  <nav class="flex flex-col gap-2">
+   <a
+    routerLink="/"
+    routerLinkActive="bg-primary text-white shadow-md"
+    [routerLinkActiveOptions]="{ exact: true }"
+    class="flex items-center px-4 py-2 rounded-lg
+           transition-all duration-200
+           hover:bg-primary/10 hover:text-primary
+           dark:hover:bg-primary/20"
+  >
+    <i class="mdi mdi-home mr-3 text-lg"></i>
+    Home
+  </a>
+
+  <!-- Favorite -->
+  <a
+    routerLink="/favorite"
+    routerLinkActive="bg-primary text-white shadow-md"
+    class="flex items-center px-4 py-2 rounded-lg
+           transition-all duration-200
+           hover:bg-primary/10 hover:text-primary
+           dark:hover:bg-primary/20"
+  >
+    <i class="mdi mdi-heart mr-3 text-lg"></i>
+    Favorite
+  </a>
+  </nav>
+</aside>

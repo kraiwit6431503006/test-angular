@@ -1,0 +1,49 @@
+<header
+  class="sticky top-0 z-30 bg-white md:bg-gray-100 dark:bg-neutral-900 md:dark:bg-black backdrop-blur-md px-6 py-3 flex items-center justify-between"
+>
+  <!-- Left -->
+  <div class="flex items-center gap-2">
+    <button
+      class="md:hidden rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+      (click)="toggleSidebar()"
+    >
+      <i class="mdi mdi-menu w-6 h-6 text-gray-700 dark:text-white"></i>
+    </button>
+
+    <div class="flex items-center gap-1 md:hidden">
+      <div
+        class="bg-primary text-white w-7 h-7 flex items-center justify-center rounded font-bold text-lg"
+      >
+        T
+      </div>
+      <div>
+        <h1 class="font-semibold text-lg text-gray-900 dark:text-white">est</h1>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right -->
+  <div class="flex items-center gap-3">
+    <button
+      (click)="toggleDark()"
+      class="relative w-14 h-8 flex items-center rounded-full transition-colors duration-300 focus:outline-none"
+      [ngClass]="theme.isDark() ? 'bg-primary' : 'bg-gray-300 dark:bg-gray-700'"
+    >
+      <!-- Circle -->
+      <div
+        class="absolute w-6 h-6 bg-white rounded-full shadow-md flex items-center justify-center transform transition-transform duration-300"
+        [class.translate-x-7]="theme.isDark()"
+        [class.translate-x-1]="!theme.isDark()"
+      >
+        <i
+          class="text-xs"
+          [ngClass]="
+            theme.isDark()
+              ? 'mdi mdi-moon-waxing-crescent text-yellow-500'
+              : 'mdi mdi-white-balance-sunny text-yellow-500'
+          "
+        ></i>
+      </div>
+    </button>
+  </div>
+</header>

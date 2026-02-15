@@ -1,0 +1,44 @@
+<div
+  [routerLink]="['/post', post.id]"
+  class="relative p-4 bg-white dark:bg-neutral-900 shadow rounded-xl transition hover:shadow-lg hover:scale-[1.01] cursor-pointer"
+>
+  <!-- User -->
+  <div class="flex items-center gap-2">
+    <div class="h-7 w-7 rounded-full bg-gray-200 dark:bg-white flex justify-center items-center">
+      <i class="mdi mdi-account text-primary"></i>
+    </div>
+    <p class="text-neutral-700 dark:text-white">User {{ post.userId }}</p>
+  </div>
+
+  <!-- Favorite -->
+  <button
+    (click)="toggleFavorite($event)"
+    class="absolute top-3 right-3 text-xl transition"
+    [ngClass]="
+      favoriteService.isFavorite(post.id) ? 'text-red-500' : 'text-gray-400 hover:text-red-400'
+    "
+  >
+    <i
+      class="mdi"
+      [ngClass]="favoriteService.isFavorite(post.id) ? 'mdi-heart' : 'mdi-heart-outline'"
+    ></i>
+  </button>
+
+  <!-- Title -->
+  <h3 class="font-semibold text-lg text-neutral-700 dark:text-white mt-2">
+    {{ post.title }}
+  </h3>
+
+  <!-- Body -->
+  <p class="text-gray-600 dark:text-gray-400 mt-2 line-clamp-2">
+    {{ post.body }}
+  </p>
+
+  <!-- See More -->
+  <div class="flex justify-end mt-3">
+    <div class="flex items-center text-primary gap-1">
+      <p class="text-sm font-medium">See more</p>
+      <i class="mdi mdi-arrow-right"></i>
+    </div>
+  </div>
+</div>
