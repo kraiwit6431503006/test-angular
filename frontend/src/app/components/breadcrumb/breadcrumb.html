@@ -1,26 +1,43 @@
 <nav
-  class="flex items-center flex-wrap gap-2 px-4 py-3 rounded-xl bg-white dark:bg-neutral-900 text-sm w-full mb-4"
+  class="flex items-center flex-wrap gap-2 px-4 py-3 rounded-xl 
+         bg-white dark:bg-neutral-900 
+         text-sm w-full mb-4"
 >
   <ng-container *ngFor="let item of items; let last = last">
+
     <!-- Clickable -->
     <a
       *ngIf="!last && item.url"
       [routerLink]="item.url"
-      class="flex items-center gap-2 px-2 py-1 rounded-md text-neutral-600 dark:text-neutral-300 hover:text-primary transition-colors duration-200"
+      class="flex items-center gap-2 px-2 py-1 rounded-md 
+             text-neutral-600 dark:text-neutral-300 
+             hover:text-primary 
+             transition-colors duration-200"
     >
-      <i *ngIf="item.label === 'Home'" class="mdi mdi-home text-base"></i>
-
+      <i *ngIf="item.icon" class="mdi text-base" [ngClass]="item.icon"></i>
       {{ item.label }}
     </a>
 
     <!-- Current Page -->
-    <span *ngIf="last" class="px-3 py-1 rounded-lg bg-primary/10 text-primary font-semibold">
-      <i *ngIf="item.label === 'Home'" class="mdi mdi-home text-base"></i>
-
+    <span
+      *ngIf="last"
+      class="flex items-center gap-2 
+             px-3 py-1 rounded-lg 
+             bg-primary/10 
+             text-primary 
+             font-semibold"
+    >
+      <i *ngIf="item.icon" class="mdi text-base" [ngClass]="item.icon"></i>
       {{ item.label }}
     </span>
 
     <!-- Separator -->
-    <span *ngIf="!last" class="text-neutral-400 dark:text-neutral-500 select-none"> / </span>
+    <span
+      *ngIf="!last"
+      class="text-neutral-400 dark:text-neutral-500 select-none"
+    >
+      /
+    </span>
+
   </ng-container>
 </nav>

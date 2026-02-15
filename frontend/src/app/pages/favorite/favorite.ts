@@ -17,7 +17,7 @@ export class Favorite {
     public favoriteService: FavoriteService,
   ) {}
 
-  breadcrumbs = [{ label: 'Home', url: '/' }, { label: 'Favorite' }];
+  breadcrumbs = [ { label: 'Favorite',icon: 'mdi-heart' }];
 
   favoritePosts = computed(() =>
     this.postService.displayPosts().filter((post) => this.favoriteService.isFavorite(post.id)),

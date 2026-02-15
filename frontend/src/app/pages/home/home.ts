@@ -19,7 +19,7 @@ export class Home implements OnInit {
     public favoriteService: FavoriteService,
   ) {}
 
-  breadcrumbs: BreadcrumbItem[] = [{ label: 'Home' }];
+  breadcrumbs: BreadcrumbItem[] = [{ label: 'Home',icon: 'mdi-home' }];
 
   ngOnInit() {
     this.postService.fetchPosts();

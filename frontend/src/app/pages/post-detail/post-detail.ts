@@ -20,7 +20,7 @@ export class PostDetail implements OnInit {
   error = signal<string | null>(null);
   postId = this.route.snapshot.paramMap.get('id');
   breadcrumbs = [
-    { label: 'Home', url: '/' },
+    { label: 'Home', url: '/',icon: 'mdi-home' },
     { label: 'Post', url: '/' },
     { label: `#${this.postId}` },
   ];

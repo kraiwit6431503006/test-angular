@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 export interface BreadcrumbItem {
   label: string;
   url?: string;
+  icon?: string;
 }
 
 @Component({
