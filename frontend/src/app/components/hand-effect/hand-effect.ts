@@ -83,37 +83,49 @@ export class HandEffect implements AfterViewInit {
   }
 
   isShadowCloneSign(left: any, right: any, w: number, h: number): boolean {
-    const dist = (a: any, b: any) => {
-      return Math.sqrt(Math.pow((a.x - b.x) * w, 2) + Math.pow((a.y - b.y) * h, 2));
-    };
+  const baseSize = Math.min(w, h); // ใช้ค่าที่เล็กกว่า
 
-    const isExtended = (hand: any) => {
-      const d8 = dist(hand[8], hand[0]);
-      const d6 = dist(hand[6], hand[0]);
-      const d12 = dist(hand[12], hand[0]);
-      const d10 = dist(hand[10], hand[0]);
-      return d8 > d6 && d12 > d10;
-    };
+  const dist = (a: any, b: any) =>
+    Math.sqrt(
+      Math.pow((a.x - b.x) * w, 2) +
+      Math.pow((a.y - b.y) * h, 2)
+    );
 
-    if (!isExtended(left) || !isExtended(right)) return false;
+  const isExtended = (hand: any) => {
+    const d8 = dist(hand[8], hand[0]);
+    const d6 = dist(hand[6], hand[0]);
+    const d12 = dist(hand[12], hand[0]);
+    const d10 = dist(hand[10], hand[0]);
+    return d8 > d6 * 1.05 && d12 > d10 * 1.05; // เพิ่ม tolerance
+  };
 
-    const intersectionThreshold = w * 0.12;
-    const isTouching =
-      dist(left[8], right[6]) < intersectionThreshold ||
-      dist(left[8], right[7]) < intersectionThreshold ||
-      dist(right[8], left[6]) < intersectionThreshold ||
-      dist(right[8], left[7]) < intersectionThreshold;
-    const getAngle = (hand: any) => {
-      return Math.atan2((hand[8].y - hand[5].y) * h, (hand[8].x - hand[5].x) * w);
-    };
+  if (!isExtended(left) || !isExtended(right)) return false;
 
-    const angleLeft = getAngle(left);
-    const angleRight = getAngle(right);
-    const angleDiff = Math.abs(angleLeft - angleRight);
-    const isCrossed = angleDiff > 1.0 && angleDiff < 2.2;
+  // ปรับ threshold ให้เหมาะกับมือถือ
+  const intersectionThreshold = baseSize * 0.18;
 
-    return isTouching && isCrossed;
-  }
+  const isTouching =
+    dist(left[8], right[6]) < intersectionThreshold ||
+    dist(left[8], right[7]) < intersectionThreshold ||
+    dist(right[8], left[6]) < intersectionThreshold ||
+    dist(right[8], left[7]) < intersectionThreshold;
+
+  const getAngle = (hand: any) =>
+    Math.atan2(
+      (hand[8].y - hand[5].y) * h,
+      (hand[8].x - hand[5].x) * w
+    );
+
+  const angleLeft = getAngle(left);
+  const angleRight = getAngle(right);
+  const angleDiff = Math.abs(angleLeft - angleRight);
+
+  // ขยายช่วง angle ให้เหมาะกับมือถือ
+  const isCrossed = angleDiff > 0.8 && angleDiff < 2.5;
+
+  return isTouching && isCrossed;
+}
+
 
   renderClones(ctx: CanvasRenderingContext2D, video: HTMLVideoElement, w: number, h: number) {
     if (!this.segmentationMask) return;
