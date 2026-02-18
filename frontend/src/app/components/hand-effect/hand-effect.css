@@ -1,0 +1,18 @@
+.clone-effect {
+  animation: chakraFlash 0.9s ease-out;
+}
+
+@keyframes chakraFlash {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.08);
+    filter: brightness(2.5) hue-rotate(200deg);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
